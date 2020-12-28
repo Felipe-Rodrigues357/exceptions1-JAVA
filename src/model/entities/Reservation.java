@@ -35,9 +35,18 @@ public class Reservation {
 		return TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
 	}
 	
-	public void updateDates(Date checkIn, Date checkOut) {
+	public String updateDates(Date checkIn, Date checkOut) {
+		
+		Date now = new Date();
+		if (checkIn.before(now) || checkOut.before(now)) {
+			return "Reservation Dates for update must be Future Dates!";
+		} 
+		if (!checkOut.after(checkIn)) {
+			return "Check-Out Date must be after Check-In Date!";
+		} 
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
+		return null;
 	}
 	
 	@Override
